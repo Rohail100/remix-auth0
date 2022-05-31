@@ -46,7 +46,7 @@ export default function App() {
           <Links />
         </head>
         <body>
-          <button onClick={() => navigate("/logout")}>Logout</button>
+          <button onClick={() => navigate("/logout")}>LogoutNow</button>
         
           <Outlet />
           <ScrollRestoration />
