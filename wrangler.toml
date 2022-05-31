@@ -12,7 +12,8 @@ bucket = "./public"
 entry-point = "build"
 
 [build]
-command = "npm run build"
+
+command = "npm i && npm run build"
 
 [build.upload]
 format="service-worker"
