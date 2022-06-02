@@ -1,19 +1,16 @@
-name = "test"
-type = "javascript"
+name = "myweb"
+type = "webpack"
 compatibility_date = "2022-04-05"
 
 zone_id = ""
 account_id = "d64123c31636ef4d17b3c241b16d2051"
-route = "test.dev100.workers.dev/*"
+route = "myweb.dev100.workers.dev/*"
 workers_dev = true
 
 [site]
 bucket = "./public"
-entry-point = "build"
+entry-point = "."
 
-[build]
-
-command = "npm i && npm run build"
 
 [build.upload]
 format="service-worker"

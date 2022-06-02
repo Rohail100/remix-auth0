@@ -1,78 +1,78 @@
-// import { createEventHandler } from "@remix-run/cloudflare-workers";
-// import * as build from "@remix-run/dev/server-build";
-
-// addEventListener(
-//   "fetch",
-//   createEventHandler({ build, mode: process.env.NODE_ENV })
-// );
-
-import {
-  createRequestHandler,
-  handleAsset,
-} from "@remix-run/cloudflare-workers";
-import {
-  getAssetFromKV,
-  mapRequestToAsset
-} from '@cloudflare/kv-asset-handler'
-
+import { createEventHandler } from "@remix-run/cloudflare-workers";
 import * as build from "@remix-run/dev/server-build";
 
-const handleRequest = createRequestHandler({
-  build
-});
+addEventListener(
+  "fetch",
+  createEventHandler({ build, mode: process.env.NODE_ENV })
+);
 
-const customKeyModifier = request => {
-  let url = request.url
-  //custom key mapping optional
+// import {
+//   createRequestHandler,
+//   handleAsset,
+// } from "@remix-run/cloudflare-workers";
+// import {
+//   getAssetFromKV,
+//   mapRequestToAsset
+// } from '@cloudflare/kv-asset-handler'
 
-  url = url.replace('build', 'public/build')
+// import * as build from "@remix-run/dev/server-build";
 
-  return mapRequestToAsset(new Request(url, request))
-}
+// const handleRequest = createRequestHandler({
+//   build
+// });
 
-const handleEvent = async (event) => {
+// const customKeyModifier = request => {
+//   let url = request.url
+//   //custom key mapping optional
 
-  let response
+//   url = url.replace('build', 'public/build')
 
-  if (process.env.NODE_ENV === "production") {
-    response = await handleAsset(event, build, {
-      mapRequestToAsset: customKeyModifier
-    })
-  } else {
-    response = await handleAsset(event, build);
-  }
+//   return mapRequestToAsset(new Request(url, request))
+// }
 
-  // try {
-  //   response = await getAssetFromKV(event, {
-  //     mapRequestToAsset: customKeyModifier
-  //   })
-  // } catch (err) {
-  //   response = await handleAsset(event, build);
-  // }
+// const handleEvent = async (event) => {
 
-  if (!response) {
-    response = await handleRequest(event);
-  }
+//   let response
 
-  return response;
-};
+//   if (process.env.NODE_ENV === "production") {
+//     response = await handleAsset(event, build, {
+//       mapRequestToAsset: customKeyModifier
+//     })
+//   } else {
+//     response = await handleAsset(event, build);
+//   }
 
-addEventListener("fetch", (event) => {
-  try {
-    event.respondWith(handleEvent(event));
-  } catch (e) {
-    if (process.env.NODE_ENV === "development") {
-      event.respondWith(
-        new Response(e.message || e.toString(), {
-          status: 500,
-        })
-      );
-    }
+//   // try {
+//   //   response = await getAssetFromKV(event, {
+//   //     mapRequestToAsset: customKeyModifier
+//   //   })
+//   // } catch (err) {
+//   //   response = await handleAsset(event, build);
+//   // }
 
-    event.respondWith(
-      new Response("Internal Error", {
-        status: 500
-      })
-    );
-  }
-});
+//   if (!response) {
+//     response = await handleRequest(event);
+//   }
+
+//   return response;
+// };
+
+// addEventListener("fetch", (event) => {
+//   try {
+//     event.respondWith(handleEvent(event));
+//   } catch (e) {
+//     if (process.env.NODE_ENV === "development") {
+//       event.respondWith(
+//         new Response(e.message || e.toString(), {
+//           status: 500,
+//         })
+//       );
+//     }
+
+//     event.respondWith(
+//       new Response("Internal Error", {
+//         status: 500
+//       })
+//     );
+//   }
+// });
