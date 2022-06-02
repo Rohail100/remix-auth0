@@ -30,7 +30,7 @@ export const meta = () => ({
 export default function App() {
   const navigate = useNavigate()
   const data = useLoaderData();
-  const callbackUrl = data.ENV.NODE_ENV === "production" ? 'https://test.dev100.workers.dev/callback' : 'http://localhost:8787/callback'
+  const callbackUrl = data.ENV.NODE_ENV === "production" ? 'https://myapp.dev100.workers.dev/callback' : 'http://localhost:8787/callback'
 
 
   return (

@@ -1,10 +1,10 @@
-name = "myweb"
+name = "myapp"
 type = "webpack"
 compatibility_date = "2022-04-05"
 
 zone_id = ""
 account_id = "d64123c31636ef4d17b3c241b16d2051"
-route = "myweb.dev100.workers.dev/*"
+route = "myapp.dev100.workers.dev/*"
 workers_dev = true
 
 [site]
